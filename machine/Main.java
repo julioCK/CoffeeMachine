@@ -1,7 +1,7 @@
 package machine;
-import machine.CoffeeMachine;
+
 import java.util. Scanner;
-import machine.CoffeeMachine;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -31,6 +31,50 @@ public class Main {
 //        }
 
         Scanner scan = new Scanner(System.in);
+        CoffeeMachine machine1 = new CoffeeMachine(400, 540, 120, 9, 550.0);
+
+        machine1.displayStatus();
+
+        System.out.println("Write action (buy, fill, take):");
+        String action = scan.next();
+
+        switch(action) {
+            case "buy":
+                System.out.println("""
+                        What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:
+                        """);
+                int option = scan.nextInt();
+                if (option == 1)
+                    machine1.dropEspresso();
+                else if (option == 2)
+                    machine1.dropLatte();
+                else
+                    machine1.dropCappuccino();
+
+                machine1.displayStatus();
+                break;
+
+            case "fill":
+                System.out.println("Write how many ml of water you want to add:");
+                int waterFill = scan.nextInt();
+                System.out.println("Write how many ml of milk you want to add:");
+                int milkFill = scan.nextInt();
+                System.out.println("Write how many grams of coffee beans you want to add:");
+                int coffeeFill = scan.nextInt();
+                System.out.println("Write how many disposable cups you want to add:");
+                int cupsFill = scan.nextInt();
+
+                machine1.fillStock(waterFill, milkFill, coffeeFill, cupsFill);
+                machine1.displayStatus();
+                break;
+
+            case "take":
+                double totalMoney = machine1.getMoney();
+                System.out.printf("I gave you $%.0f\n", totalMoney);
+                machine1.withdrawMoney();
+                machine1.displayStatus();
+                break;
+        }
 
     }
 }

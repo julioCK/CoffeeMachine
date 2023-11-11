@@ -24,7 +24,7 @@ public class CoffeeMachine {
     private void setMoney(double money) {this.money = Math.max(money, 0);}
     private void setCupsOfCoffeeAmount(int cupsOfCoffeeAmount) {this.cupsOfCoffeeAmount = Math.max(cupsOfCoffeeAmount, 0);}
 
-    public CoffeeMachine(int water, int milk, int coffeeBeans, int disposableCupsAmount, int money) {
+    public CoffeeMachine(int water, int milk, int coffeeBeans, int disposableCupsAmount, double money) {
         this.water = water;
         this.milk = milk;
         this.coffeeBeans = coffeeBeans;
@@ -63,16 +63,16 @@ public class CoffeeMachine {
                         %d g of coffee beans
                         %d disposable cups
                         $%.0f of money
+                        \n
                         """,
                 this.water, this.milk, this.coffeeBeans, this.disposableCupsAmount, this.money
         );
     }
-    protected void fillStock(int water, int milk, int coffeeBeans, int disposableCups, int money) {
-        setWater(water);
-        setMilk(milk);
-        setCoffeeBeans(coffeeBeans);
-        setDisposableCupsAmount(disposableCups);
-        setMoney(money);
+    protected void fillStock(int water, int milk, int coffeeBeans, int disposableCups) {
+        setWater(getWater() + water);
+        setMilk(getMilk() + milk);
+        setCoffeeBeans(getCoffeeBeans() + coffeeBeans);
+        setDisposableCupsAmount(getDisposableCupsAmount() + disposableCups);
     }
     protected void dropEspresso() {
         setWater(this.water - 250);
