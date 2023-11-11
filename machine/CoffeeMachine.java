@@ -5,53 +5,31 @@ public class CoffeeMachine {
     private int water;
     private int milk;
     private int coffeeBeans;
-    private int cupsOfCoffeeAmount;
     private int disposableCupsAmount;
     private double money;
+    private int cupsOfCoffeeAmount;
     private final Cup cups = new Cup();
 
-    public int getWater() {
-        return this.water;
-    }
+    public int getWater() {return this.water;}
+    public int getMilk() {return this.milk;}
+    public int getCoffeeBeans() {return this.coffeeBeans;}
+    public int getCupsOfCoffeeAmount() {return this.cupsOfCoffeeAmount;}
+    public int getDisposableCupsAmount() {return this.disposableCupsAmount;}
+    public double getMoney() {return this.money;}
 
-    public int getMilk() {
-        return milk;
-    }
+    private void setWater(int water) {this.water = Math.max(water, 0);}
+    private void setMilk(int milk) {this.milk = Math.max(milk, 0);}
+    private void setCoffeeBeans(int coffeeBeans) {this.coffeeBeans = Math.max(coffeeBeans, 0);}
+    private void setDisposableCupsAmount(int disposableCupsAmount) {this.disposableCupsAmount = Math.max(disposableCupsAmount, 0);}
+    private void setMoney(double money) {this.money = Math.max(money, 0);}
+    private void setCupsOfCoffeeAmount(int cupsOfCoffeeAmount) {this.cupsOfCoffeeAmount = Math.max(cupsOfCoffeeAmount, 0);}
 
-    public int getCoffeeBeans() {
-        return coffeeBeans;
-    }
-
-    public int getCupsOfCoffeeAmount() {
-        return this.cupsOfCoffeeAmount;
-    }
-
-    public void setWater(int water) {
-        if(water > 0)
-            this.water = water;
-    }
-
-    public void setMilk(int milk) {
-        if(milk > 0)
-            this.milk = milk;
-    }
-
-    public void setCoffeeBeans(int coffeeBeans) {
-        if(coffeeBeans > 0)
-            this.coffeeBeans = coffeeBeans;
-    }
-
-    private void setCupsOfCoffeeAmount(int cupsOfCoffeeAmount) {
-        if(cupsOfCoffeeAmount > 0)
-            this.cupsOfCoffeeAmount = cupsOfCoffeeAmount;
-        else
-            this.cupsOfCoffeeAmount = 0;
-    }
-
-    public CoffeeMachine(int water, int milk, int coffeeBeans) {
+    public CoffeeMachine(int water, int milk, int coffeeBeans, int disposableCupsAmount, int money) {
         this.water = water;
         this.milk = milk;
         this.coffeeBeans = coffeeBeans;
+        this.disposableCupsAmount = disposableCupsAmount;
+        this.money = money;
     }
 
     public void calcCurrentCupsAmount() {
@@ -76,7 +54,6 @@ public class CoffeeMachine {
         int maxCups = (int) Math.floor(smaller);
         setCupsOfCoffeeAmount(maxCups);
     }
-
     public void displayStatus() {
         System.out.printf(
                 """
@@ -89,5 +66,35 @@ public class CoffeeMachine {
                         """,
                 this.water, this.milk, this.coffeeBeans, this.disposableCupsAmount, this.money
         );
+    }
+    protected void fillStock(int water, int milk, int coffeeBeans, int disposableCups, int money) {
+        setWater(water);
+        setMilk(milk);
+        setCoffeeBeans(coffeeBeans);
+        setDisposableCupsAmount(disposableCups);
+        setMoney(money);
+    }
+    protected void dropEspresso() {
+        setWater(this.water - 250);
+        setCoffeeBeans(this.coffeeBeans - 16);
+        setMoney(this.money + 4);
+        setDisposableCupsAmount(this.disposableCupsAmount - 1);
+    }
+    protected void dropLatte() {
+        setWater(this.water - 350);
+        setMilk(this.milk - 75);
+        setCoffeeBeans(this.coffeeBeans - 20);
+        setMoney(this.money + 7);
+        setDisposableCupsAmount(this.disposableCupsAmount - 1);
+    }
+    protected void dropCappuccino() {
+        setWater(this.water - 200);
+        setMilk(this.milk - 100);
+        setCoffeeBeans(this.coffeeBeans - 12);
+        setMoney(this.money + 6);
+        setDisposableCupsAmount(this.disposableCupsAmount - 1);
+    }
+    protected void withdrawMoney() {
+        setMoney(0);
     }
 }
