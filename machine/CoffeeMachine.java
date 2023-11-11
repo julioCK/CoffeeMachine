@@ -1,13 +1,14 @@
 package machine;
-import machine.Cup;
 
 
 public class CoffeeMachine {
     private int water;
     private int milk;
     private int coffeeBeans;
+    private int cupsOfCoffeeAmount;
+    private int disposableCupsAmount;
+    private double money;
     private final Cup cups = new Cup();
-    private int cupsAmount;
 
     public int getWater() {
         return this.water;
@@ -21,8 +22,8 @@ public class CoffeeMachine {
         return coffeeBeans;
     }
 
-    public int getCupsAmount() {
-        return this.cupsAmount;
+    public int getCupsOfCoffeeAmount() {
+        return this.cupsOfCoffeeAmount;
     }
 
     public void setWater(int water) {
@@ -40,11 +41,11 @@ public class CoffeeMachine {
             this.coffeeBeans = coffeeBeans;
     }
 
-    private void setCupsAmount(int cupsAmount) {
-        if(cupsAmount > 0)
-            this.cupsAmount = cupsAmount;
+    private void setCupsOfCoffeeAmount(int cupsOfCoffeeAmount) {
+        if(cupsOfCoffeeAmount > 0)
+            this.cupsOfCoffeeAmount = cupsOfCoffeeAmount;
         else
-            this.cupsAmount = 0;
+            this.cupsOfCoffeeAmount = 0;
     }
 
     public CoffeeMachine(int water, int milk, int coffeeBeans) {
@@ -73,6 +74,20 @@ public class CoffeeMachine {
             }
         }
         int maxCups = (int) Math.floor(smaller);
-        setCupsAmount(maxCups);
+        setCupsOfCoffeeAmount(maxCups);
+    }
+
+    public void displayStatus() {
+        System.out.printf(
+                """
+                        The coffee machine has:
+                        %d ml of water
+                        %d ml of milk
+                        %d g of coffee beans
+                        %d disposable cups
+                        $%.0f of money
+                        """,
+                this.water, this.milk, this.coffeeBeans, this.disposableCupsAmount, this.money
+        );
     }
 }
