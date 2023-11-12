@@ -1,6 +1,9 @@
 package machine;
 
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 public class CoffeeMachine {
     private int water;
     private int milk;
@@ -31,6 +34,15 @@ public class CoffeeMachine {
         this.money = money;
     }
 
+    private Map<String, Integer> MapStock() {
+        Map<String, Integer> instantMachineStock = new LinkedHashMap<>(5);
+        instantMachineStock.put("water", this.water);
+        instantMachineStock.put("milk", this.milk);
+        instantMachineStock.put("coffee", this.coffeeBeans);
+        instantMachineStock.put("disposableCups", this.disposableCupsAmount);
+
+        return instantMachineStock;
+    }
     public void displayStatus() {
         System.out.printf(
                 """
@@ -51,26 +63,32 @@ public class CoffeeMachine {
         setDisposableCupsAmount(getDisposableCupsAmount() + disposableCups);
     }
     protected void dropEspresso() {
+        int[] espressoIng = new int[] {250, 16, 1};
+        int[] currentStock = new int [] {this.water, this.coffeeBeans, this.disposableCupsAmount};
+
+        for (int i = 0; i < 3; i++) {
+            if (espressoIng[i] > currentStock[i])
+                System.out.println();
+        }
+
         setWater(this.water - 250);
         setCoffeeBeans(this.coffeeBeans - 16);
-        setMoney(this.money + 4);
         setDisposableCupsAmount(this.disposableCupsAmount - 1);
+        setMoney(this.money + 4);
     }
     protected void dropLatte() {
         setWater(this.water - 350);
         setMilk(this.milk - 75);
         setCoffeeBeans(this.coffeeBeans - 20);
-        setMoney(this.money + 7);
         setDisposableCupsAmount(this.disposableCupsAmount - 1);
+        setMoney(this.money + 7);
     }
     protected void dropCappuccino() {
-
-
         setWater(this.water - 200);
         setMilk(this.milk - 100);
         setCoffeeBeans(this.coffeeBeans - 12);
-        setMoney(this.money + 6);
         setDisposableCupsAmount(this.disposableCupsAmount - 1);
+        setMoney(this.money + 6);
     }
     protected void withdrawMoney() {
         setMoney(0);
