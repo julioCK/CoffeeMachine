@@ -8,7 +8,6 @@ public class CoffeeMachine {
     private int disposableCupsAmount;
     private double money;
     private int cupsOfCoffeeAmount;
-    private final Cup cups = new Cup();
 
     public int getWater() {return this.water;}
     public int getMilk() {return this.milk;}
@@ -32,28 +31,6 @@ public class CoffeeMachine {
         this.money = money;
     }
 
-    public void calcCurrentCupsAmount() {
-
-        //the ingredient with the least amount is what will define the quantity of cups. The order here is important.
-        int[] ingredients = new int[]{this.water, this.milk, this.coffeeBeans};
-        int[] aCup = new int[]{cups.cupWater, cups.cupMilk, cups.cupCoffeeBeans};
-
-
-        int ingredientIndex = 0;
-        double aux;
-        double smaller =(double) ingredients[2] / aCup[2];
-        //this loop will find the ingredient in smaller proportion and assign its index to the ingredientIndex variable.
-        for (int i = 0; i < ingredients.length; i++) {
-            aux = (double) ingredients[i] / aCup[i];
-
-            if(aux < smaller) {
-                smaller = aux;
-                ingredientIndex = i;
-            }
-        }
-        int maxCups = (int) Math.floor(smaller);
-        setCupsOfCoffeeAmount(maxCups);
-    }
     public void displayStatus() {
         System.out.printf(
                 """
@@ -63,8 +40,7 @@ public class CoffeeMachine {
                         %d g of coffee beans
                         %d disposable cups
                         $%.0f of money
-                        \n
-                        """,
+                        \n""",
                 this.water, this.milk, this.coffeeBeans, this.disposableCupsAmount, this.money
         );
     }
@@ -88,6 +64,8 @@ public class CoffeeMachine {
         setDisposableCupsAmount(this.disposableCupsAmount - 1);
     }
     protected void dropCappuccino() {
+
+
         setWater(this.water - 200);
         setMilk(this.milk - 100);
         setCoffeeBeans(this.coffeeBeans - 12);
