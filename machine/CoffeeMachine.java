@@ -38,7 +38,7 @@ public class CoffeeMachine {
         Map<String, Integer> instantMachineStock = new LinkedHashMap<>(5);
         instantMachineStock.put("water", this.water);
         instantMachineStock.put("milk", this.milk);
-        instantMachineStock.put("coffee", this.coffeeBeans);
+        instantMachineStock.put("coffeeBeans", this.coffeeBeans);
         instantMachineStock.put("disposableCups", this.disposableCupsAmount);
 
         return instantMachineStock;
@@ -63,20 +63,59 @@ public class CoffeeMachine {
         setDisposableCupsAmount(getDisposableCupsAmount() + disposableCups);
     }
     protected void dropEspresso() {
-        int[] espressoIng = new int[] {250, 16, 1};
-        int[] currentStock = new int [] {this.water, this.coffeeBeans, this.disposableCupsAmount};
+        Map<String, Integer> machineStock = MapStock(); //create a map with the current amount of each ingredient on stock
+        Map<String, Integer> espressoIngredients = new LinkedHashMap<>(); //create a map that will contain the ingredients needed to make an espresso
 
-        for (int i = 0; i < 3; i++) {
-            if (espressoIng[i] > currentStock[i])
-                System.out.println();
+        espressoIngredients.put("water", 250); //water to make one espresso
+        espressoIngredients.put("coffeeBeans", 16); //milk to make one espresso
+        espressoIngredients.put("disposableCups", 1); //disposable cups to make one espresso
+
+
+        /*
+            the next loop will iterate over the map of espresso ingredients. The Map.entry "entry" will contain
+            one pair "key-value" of espresso ingredients each iteration.
+
+            The "espressoIngredients.entrySet()" returns a set of all key-value pairs of the map "espressoIngredients".
+                -On each iteration the key(.getKey()) will be saved in the "ingredient" variable.
+                -The if statement will test if value (ingredient) exceeds the amount in stock
+                -If the stock amount is not enough for one espresso, the message "Sorry..." will be displayed and the function
+                 will end.
+                -Otherwise the machine will drop the coffee
+        */
+
+
+        for (Map.Entry<String, Integer> entry : espressoIngredients.entrySet()) {
+            String ingredient = entry.getKey();
+            if(entry.getValue() > machineStock.get(ingredient)) {
+                System.out.println("Sorry, not enough " + ingredient);
+                return;
+            }
         }
 
+        System.out.println("I have enough resources, making you a coffee!");
         setWater(this.water - 250);
         setCoffeeBeans(this.coffeeBeans - 16);
         setDisposableCupsAmount(this.disposableCupsAmount - 1);
         setMoney(this.money + 4);
     }
     protected void dropLatte() {
+        Map<String, Integer> machineStock = MapStock();
+        Map<String, Integer> latteIngredients = new LinkedHashMap<>();
+
+        latteIngredients.put("water", 350);
+        latteIngredients.put("milk", 75);
+        latteIngredients.put("coffeeBeans", 20);
+        latteIngredients.put("disposableCups", 1);
+
+        for (Map.Entry<String, Integer> entry : latteIngredients.entrySet()) {
+            String ingredient = entry.getKey();
+            if(entry.getValue() > machineStock.get(ingredient)) {
+                System.out.println("Sorry, not enough " + ingredient);
+                return;
+            }
+        }
+
+        System.out.println("I have enough resources, making you a coffee!");
         setWater(this.water - 350);
         setMilk(this.milk - 75);
         setCoffeeBeans(this.coffeeBeans - 20);
@@ -84,6 +123,23 @@ public class CoffeeMachine {
         setMoney(this.money + 7);
     }
     protected void dropCappuccino() {
+        Map<String, Integer> machineStock = MapStock();
+        Map<String, Integer> cappuccinoIngredients = new LinkedHashMap<>();
+
+        cappuccinoIngredients.put("water", 200);
+        cappuccinoIngredients.put("milk", 100);
+        cappuccinoIngredients.put("coffeeBeans", 12);
+        cappuccinoIngredients.put("disposableCups", 1);
+
+        for(Map.Entry<String, Integer> entry : cappuccinoIngredients.entrySet()) {
+            String ingredient = entry.getKey();
+            if(entry.getValue() > machineStock.get(ingredient)) {
+                System.out.println("Sorry, not enough " + ingredient);
+                return;
+            }
+        }
+
+        System.out.println("I have enough resources, making you a coffee!");
         setWater(this.water - 200);
         setMilk(this.milk - 100);
         setCoffeeBeans(this.coffeeBeans - 12);
