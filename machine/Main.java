@@ -12,13 +12,29 @@ public class Main {
         String action;
 
         do{
-            System.out.println("Write action (buy, fill, take, remaining, exit):");
-            action = scan.next();
+            try{
+                System.out.println("Write action (buy, fill, take, remaining, exit):");
+                action = scan.nextLine();
+                InputValidation.validateAlpha(action);
+            } catch (ActionInputException aie) {
+                System.out.println(aie.getMessage());
+                break;
+            }
 
             switch(action) {
+
                 case "buy":
-                    System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-                    String option = scan.next();
+                    String option;
+
+                    try {
+                        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
+                        option = scan.next();
+                        InputValidation.validateANum(option);
+                    } catch (ActionInputException aie) {
+                        System.out.println(aie.getMessage());
+                        break;
+                    }
+
                     switch (option) {
                         case "1":
                             machine1.dropEspresso();
@@ -60,7 +76,6 @@ public class Main {
                 default:
                     if(!action.equals("exit")) {
                         System.out.println("Please enter with one of the options:");
-                        System.out.println("(buy, fill, take, remaining, exit)");
                     } else
                         break;
             }
