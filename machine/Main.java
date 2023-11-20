@@ -49,12 +49,18 @@ public class Main {
                                 case "back":
                                     break;
                             }
+
                         } catch (ActionInputException aie) {
                             System.out.println(aie.getMessage());
                         }
                     }
-                break;
+                    break;
+
                 case "fill":
+
+                    //USAR ENUMS PRA UM LOOP FOR COM MENSAGEM DIFERENTE A CADA ITERAÇÃO
+
+
                     System.out.println("Write how many ml of water you want to add:");
                     int waterFill = scan.nextInt();
                     System.out.println("Write how many ml of milk you want to add:");
