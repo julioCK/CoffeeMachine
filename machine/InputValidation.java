@@ -9,7 +9,7 @@ public class InputValidation {
             return true;
     }
     public static boolean validateANum(String entry) {
-        if(!entry.matches("\\d+")) {
+        if(!entry.matches("\\d+") && !entry.equals("back")) {
             throw new ActionInputException();
         } else
             return true;

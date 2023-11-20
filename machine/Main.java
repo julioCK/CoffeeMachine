@@ -12,6 +12,7 @@ public class Main {
         String action;
 
         do{
+            action = "";
             try{
                 System.out.println("Write action (buy, fill, take, remaining, exit):");
                 action = scan.nextLine();
@@ -25,31 +26,34 @@ public class Main {
 
                 case "buy":
                     String option;
+                    boolean continueLoop = true;
 
-                    try {
-                        System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino:");
-                        option = scan.next();
-                        InputValidation.validateANum(option);
-                    } catch (ActionInputException aie) {
-                        System.out.println(aie.getMessage());
-                        break;
+                    while(continueLoop) {
+                        try {
+                            System.out.println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, or 'back' to main menu;");
+                            option = scan.nextLine();
+
+                            InputValidation.validateANum(option);
+                            continueLoop = false;
+
+                            switch (option) {
+                                case "1":
+                                    machine1.dropEspresso();
+                                    break;
+                                case "2":
+                                    machine1.dropLatte();
+                                    break;
+                                case "3":
+                                    machine1.dropCappuccino();
+                                    break;
+                                case "back":
+                                    break;
+                            }
+                        } catch (ActionInputException aie) {
+                            System.out.println(aie.getMessage());
+                        }
                     }
-
-                    switch (option) {
-                        case "1":
-                            machine1.dropEspresso();
-                            break;
-                        case "2":
-                            machine1.dropLatte();
-                            break;
-                        case "3":
-                            machine1.dropCappuccino();
-                            break;
-                        case "back":
-                            break;
-                    }
-                    break;
-
+                break;
                 case "fill":
                     System.out.println("Write how many ml of water you want to add:");
                     int waterFill = scan.nextInt();
