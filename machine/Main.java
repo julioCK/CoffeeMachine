@@ -69,6 +69,7 @@ public class Main {
                     int coffeeFill = scan.nextInt();
                     System.out.println("Write how many disposable cups you want to add:");
                     int cupsFill = scan.nextInt();
+                    scan.nextLine();
 
                     machine1.fillStock(waterFill, milkFill, coffeeFill, cupsFill);
                     break;
